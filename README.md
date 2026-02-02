@@ -1,4 +1,5 @@
 Clone the repo from github
+the download node modules by running "npm i" or "npm install"
 then do the following
 
 ## Getting Started
