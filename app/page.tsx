@@ -7,9 +7,10 @@ export default function Home() {
   return (
     <div>
       <Header />
+     
       <main>
         {/* HERO SECTION */}
-        <div className="relative flex min-h-screen flex-col items-center justify-center px-4 py-6 text-center sm:px-6 overflow-hidden">
+        <div className="relative flex  flex-col items-center justify-center px-4 py-20 text-center sm:px-6 overflow-hidden">
 
           {/* Background Gradient */}
           <div className="absolute inset-0 -z-10 bg-gradient-to-br from-indigo-100 via-sky-100 to-purple-100" />
@@ -153,6 +154,8 @@ export default function Home() {
           </div>
         </section>
       </main>
+
+
     </div>
   );
 }
