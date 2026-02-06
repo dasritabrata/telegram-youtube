@@ -1,12 +1,22 @@
-"use client"
-import React from 'react'
+'use client'
 
-function layout({ children }: { children: React.ReactNode }) {
+import { ClerkProvider } from "@clerk/nextjs";
+import UserSyncWrapper from '@/components/UserSyncWrapper';
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <div>
-      {children}
-    </div>
-  )
+    <html lang="en">
+      <body>
+        <ClerkProvider>
+          <UserSyncWrapper>
+            {children}
+          </UserSyncWrapper>
+        </ClerkProvider>
+      </body>
+    </html>
+  );
 }
-
-export default layout

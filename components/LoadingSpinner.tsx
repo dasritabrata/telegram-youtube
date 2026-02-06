@@ -13,21 +13,47 @@ function LoadingSpinner({
   className = "",
   inline = false,
 }: LoadingSpinnerProps) {
-  const sizeClasses = {
-    sm: "h-4 w-4 border-2",
-    md: "h-6 w-6 border-2",
-    lg: "h-10 w-10 border-4 sm:h-12 sm:w-12",
+  const dotSize = {
+    sm: "h-1.5 w-1.5",
+    md: "h-2 w-2",
+    lg: "h-2.5 w-2.5 sm:h-3 sm:w-3",
   };
 
-  // 🔹 INLINE SPINNER (for buttons / text)
+  const containerSize = {
+    sm: "h-6 w-6",
+    md: "h-8 w-8",
+    lg: "h-12 w-12 sm:h-14 sm:w-14",
+  };
+
+  const Dots = () => (
+    <div className={`relative ${containerSize[size]}`}>
+      {[...Array(8)].map((_, i) => (
+        <span
+          key={i}
+          className={`
+            absolute top-1/2 left-1/2
+            ${dotSize[size]}
+            bg-indigo-500 rounded-full
+            animate-[winspin_1.2s_linear_infinite]
+          `}
+          style={{
+            transform: `
+              rotate(${i * 45}deg)
+              translate(${size === "lg" ? "1.2rem" : size === "md" ? "0.9rem" : "0.6rem"})
+            `,
+            opacity: (i + 1) / 8,
+            animationDelay: `${i * 0.1}s`,
+          }}
+        />
+      ))}
+    </div>
+  );
+
+  // 🔹 INLINE SPINNER
   if (inline) {
     return (
-      <span
-        className={`inline-flex items-center gap-2 ${className}`}
-      >
-        <span
-          className={`animate-spin rounded-full border-slate-300 border-t-indigo-600 ${sizeClasses[size]}`}
-        />
+      <span className={`inline-flex items-center gap-2 ${className}`}>
+        <Dots />
         {message && (
           <span className="text-sm text-slate-600">
             {message}
@@ -37,15 +63,12 @@ function LoadingSpinner({
     );
   }
 
-  // 🔹 FULL PAGE / CENTERED SPINNER
+  // 🔹 FULL PAGE SPINNER
   return (
     <div
       className={`flex flex-col items-center justify-center gap-4 text-center ${className}`}
     >
-      <div
-        className={`animate-spin rounded-full border-slate-300 border-t-indigo-600 ${sizeClasses[size]}`}
-      />
-
+      <Dots />
       {message && (
         <p className="max-w-xs text-sm text-slate-600 sm:text-base">
           {message}
@@ -56,3 +79,4 @@ function LoadingSpinner({
 }
 
 export default LoadingSpinner;
+
