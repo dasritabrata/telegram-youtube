@@ -15,6 +15,7 @@ import { StatusCard } from "@/components/StatusCard";
 import { AlertTriangle, Video } from "lucide-react";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import "@stream-io/video-react-sdk/dist/css/styles.css";
+import { SidebarProvider } from "@/components/ui/sidebar";
 
 // ✅ ADDED
 import { useCallStateHooks } from "@stream-io/video-react-sdk";
@@ -193,6 +194,7 @@ function Layout({ children }: { children: React.ReactNode }) {
         )
     }
     return (
+        <SidebarProvider>
         <StreamVideo client={client}>
             <StreamTheme className="text-white">
                 <StreamCall call={call}>
@@ -201,7 +203,9 @@ function Layout({ children }: { children: React.ReactNode }) {
                     {children}
                 </StreamCall>
             </StreamTheme>
-        </StreamVideo>)
+        </StreamVideo>
+        </SidebarProvider>
+    );
 
 }
 export default Layout
