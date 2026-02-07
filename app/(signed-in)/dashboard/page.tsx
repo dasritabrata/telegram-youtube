@@ -14,19 +14,23 @@ import {
   Thread,
 } from "stream-chat-react";
 import { Video, LogOut } from "lucide-react";
+import "stream-chat-react/dist/css/v2/index.css";
 
 function Dashboard() {
   const { user } = useUser();
   const router = useRouter();
   const { channel, client, setActiveChannel } = useChatContext();
-  const { setOpen } = useSidebar();
+  ;
 
   // 📱 Close sidebar automatically when a channel opens (mobile UX)
-  useEffect(() => {
-    if (channel) {
-      setOpen(false);
-    }
-  }, [channel, setOpen]);
+  const { setOpen, isMobile } = useSidebar();
+
+useEffect(() => {
+  if (channel && isMobile) {
+    setOpen(false);
+  }
+}, [channel, isMobile, setOpen]);
+
 
   // 💤 No channel selected yet
   if (!channel) {
@@ -44,15 +48,21 @@ function Dashboard() {
 
   // 🚪 Leave chat
   const handleLeaveChat = async () => {
-    if (!user || !channel) return;
-
+    if (!user?.id || !channel) return;
+// confirm before leaving
+    const confirmLeave = window.confirm("Are you sure you want to leave this chat?");
+    if (!confirmLeave) return;
     await channel.removeMembers([user.id]);
     setActiveChannel(undefined);
+    // redirect to dashboard after leaving
+    router.push("/dashboard");
   };
 
   // 📹 Video call placeholder
   const handleVideoCall = () => {
-    alert("Video calling coming soon 🚀");
+   if(!channel) return;
+   router.push(`/dashboard/video-call/${channel.id}`);
+   setOpen(false); // close sidebar on mobile
     // later: Stream Video / WebRTC
   };
 
@@ -103,3 +113,4 @@ function Dashboard() {
 }
 
 export default Dashboard;
+

@@ -45,3 +45,11 @@ export const searchUsers = query({
 
     },
 });
+
+// Return all users (for contacts list)
+export const listUsers = query({
+    handler: async (ctx) => {
+        const allUsers = await ctx.db.query("users").collect();
+        return allUsers;
+    },
+});

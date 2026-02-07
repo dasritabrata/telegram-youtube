@@ -4,14 +4,7 @@ import { Chat } from 'stream-chat-react';
 import UserSyncWrapper from '@/components/UserSyncWrapper';
 import streamClient from '@/lib/stream';
 import { AppSidebar } from "@/components/app-sidebar"
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"
+
 import { Separator } from "@/components/ui/separator"
 import {
   SidebarInset,

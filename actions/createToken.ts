@@ -6,4 +6,5 @@ export async function createToken(userId: string) {
     const token=serverClient.createToken(userId);
     console.log("Generated Stream token for userID:", userId, "Token:", token);
     return token;
+    
 }
